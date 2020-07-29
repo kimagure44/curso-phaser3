@@ -1,6 +1,8 @@
 export default class Menu extends Phaser.Scene {
   constructor() {
     super('Menu');
+    this.limit = false;
+    this.direcction = 3;
   }
   init() {
     console.log("INIT");
@@ -20,19 +22,29 @@ export default class Menu extends Phaser.Scene {
     const { game: { config: { height, width } } } = this;
     
     // Añadimos la imagen
-    var ball = this.add.image(width / 2, height, "ball");
+    this.ball = this.add.image(width / 2, height, "ball");
     
     // Modificamos las propiedades del elemento
     this.tweens.add({
-      targets: ball,
+      targets: this.ball,
       y: 400,
-      duration: 800,
+      duration: 600,
       ease: "Power2",
       yoyo: true,
       loop: -1,
     });
+
+    console.log(this.ball);
   }
   update(time, delta) {
+    // Vamos a realizar la detección de una forma sencilla, hasta que veamos la parte de físicas
+    if (this.ball.x >= this.game.config.width || this.ball.x < 0) {
+      this.limit = true;
+      this.direcction = this.ball.x >= this.game.config.width ? -3 : 3;
+    } else {
+      this.limit = false;
+    }
+    this.ball.x += this.direcction;
     // console.log(time, delta);
   }
 };
