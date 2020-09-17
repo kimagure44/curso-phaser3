@@ -7,7 +7,7 @@ export default class Menu extends Phaser.Scene {
     init() {}
     preload() {
         // Definimos la ruta base
-        this.load.path = "/assets/";
+        this.load.path = "./assets/";
 
         // Cargamos las imagenes (forma abreviada)
         this.load.image(["ball", "spaceship", "ironman"]);
